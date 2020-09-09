@@ -45,8 +45,6 @@ const App: React.FC = () => (
         <IonRouterOutlet>
           <Route path="/scanQrCode" component={ScanQrCode} />
           <Route path="/tab1" component={Tab1} exact={true} />
-          <Route path="/tab2" component={Tab2} exact={true} />
-          <Route path="/tab2/details" component={Details} />
           <Route path="/" render={() => <Redirect to="/scanQrCode" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
@@ -56,11 +54,7 @@ const App: React.FC = () => (
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab1">
             <IonIcon icon={square} />
-            <IonLabel>Take Photo</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab2">
-            <IonIcon icon={images} />
-            <IonLabel>Photos</IonLabel>
+            <IonLabel>Take Photo & Show Photo</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
