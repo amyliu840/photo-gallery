@@ -1,11 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonFab, IonFabButton, IonIcon, IonGrid, IonRow, IonCol, IonImg, IonActionSheet } from '@ionic/react';
 import { camera, trash, close } from 'ionicons/icons';
 import { usePhotoGallery, Photo } from '../hooks/usePhotoGallery';
 
-const Tab2: React.FC = () => {
-  const { deletePhoto, photos, takePhoto } = usePhotoGallery();
+function Tab2(){
   const [photoToDelete, setPhotoToDelete] = useState<Photo>();
+  const { getFileName, getApiServer, deletePhoto, photos } = usePhotoGallery();
+  const [fileName, setFileName] = useState<String>(getFileName())
+
+  useEffect(() => {
+    fetch(`${getApiServer()}/api/v1.0/image/${fileName}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+
+      });
+  }, [fileName]);
 
   return (
     <IonPage>
@@ -55,7 +65,6 @@ const Tab2: React.FC = () => {
           }]}
           onDidDismiss={() => setPhotoToDelete(undefined)}
         />
-
 
       </IonContent>
     </IonPage>

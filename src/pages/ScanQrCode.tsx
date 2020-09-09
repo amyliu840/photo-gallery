@@ -1,11 +1,8 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
 import './ScanQrCode.css';
-import { usePhotoGallery, Photo } from '../hooks/usePhotoGallery';
-
 
 const ScanQrCode: React.FC = () => {
-  const { deletePhoto, photos, takePhoto } = usePhotoGallery();
 
   return (
     <IonPage>
@@ -22,7 +19,7 @@ const ScanQrCode: React.FC = () => {
         </IonHeader>
         <IonButton shape="round" fill="outline" color="dark" 
           style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}
-          onClick={() => takePhoto()}>Scan QR Code</IonButton>
+          >Scan QR Code</IonButton>
       </IonContent>
     </IonPage>
   );

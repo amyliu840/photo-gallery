@@ -4,8 +4,13 @@ import { useFilesystem, base64FromPath } from '@ionic/react-hooks/filesystem';
 import { useStorage } from '@ionic/react-hooks/storage';
 import { isPlatform } from '@ionic/react';
 import { CameraResultType, CameraSource, CameraPhoto, Capacitor, FilesystemDirectory } from "@capacitor/core";
+// import { encode } from "@types/base64-js";
 
 const PHOTO_STORAGE = "photos";
+
+const API_SERVER = 'https://be-app-hiring-bixinf-test.22ad.bi-x.openshiftapps.com';
+const API_USER = 'admin';
+const API_PASSWORD = 'secret';
 
 export function usePhotoGallery() {
 
@@ -13,6 +18,7 @@ export function usePhotoGallery() {
   const { getPhoto } = useCamera();
   const { deleteFile, readFile, writeFile } = useFilesystem();
   const { get, set } = useStorage();
+  let fileName: string = '';
 
   useEffect(() => {
     const loadSaved = async () => {
@@ -34,14 +40,14 @@ export function usePhotoGallery() {
     loadSaved();
   }, [get, readFile]);
 
-  const takePhoto = async () => {
+  const takePhoto = async (setFileName: any) => {
     const cameraPhoto = await getPhoto({
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
       quality: 100
     });
     const fileName = new Date().getTime() + '.jpeg';
-    const savedFileImage = await savePicture(cameraPhoto, fileName);
+    const savedFileImage = await savePicture(cameraPhoto, fileName, setFileName);
     const newPhotos = [savedFileImage, ...photos];
     setPhotos(newPhotos);
     set(PHOTO_STORAGE,
@@ -57,7 +63,7 @@ export function usePhotoGallery() {
 
   };
 
-  const savePicture = async (photo: CameraPhoto, fileName: string): Promise<Photo> => {
+  const savePicture = async (photo: CameraPhoto, fileName: string, setFileName: any): Promise<Photo> => {
     let base64Data: string;
     // "hybrid" will detect Cordova or Capacitor;
     if (isPlatform('hybrid')) {
@@ -73,6 +79,32 @@ export function usePhotoGallery() {
       data: base64Data,
       directory: FilesystemDirectory.Data
     });
+
+    async function postPhoto(url = '', data = {}) {
+      // Default options are marked with *
+      const response = await fetch(url, {
+        method: 'POST', 
+        mode: 'cors', 
+        cache: 'no-cache', 
+        credentials: 'same-origin',
+        headers: {
+          'Authorization': 'Basic ' + btoa(API_USER + ":" + API_PASSWORD),
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    }    
+    
+    postPhoto(`${API_SERVER}/api/v1.0/ranking`, { picture: base64Data })
+      .then(data => {
+        console.log(data); 
+        fileName = data.file;
+        setFileName(data.file);
+    });
+             
 
     if (isPlatform('hybrid')) {
       // Display the new image by rewriting the 'file://' path to HTTP
@@ -108,10 +140,16 @@ export function usePhotoGallery() {
     setPhotos(newPhotos);
   };
 
+  const getFileName = () => fileName
+
+  const getApiServer = () => API_SERVER
+
   return {
     deletePhoto,
     photos,
-    takePhoto
+    takePhoto,
+    getFileName,
+    getApiServer
   };
 }
 
