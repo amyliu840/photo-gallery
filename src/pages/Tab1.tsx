@@ -40,9 +40,11 @@ function Tab1() {
           onClick={checkServerStatus}>Check Server Status</IonButton>
         <p style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}
           >Server: {serverStatus}</p>
-        <IonButton shape="round" fill="outline" color="dark" 
-          style={{position: 'absolute', left: '50%', top: '70%', transform: 'translate(-50%, -50%)'}}
-          onClick={takePhoto}>Take photo & upload it</IonButton>      
+        {
+          serverStatus === 'OK' && <IonButton shape="round" fill="outline" color="dark" 
+            style={{position: 'absolute', left: '50%', top: '70%', transform: 'translate(-50%, -50%)'}}
+            onClick={takePhoto}>Take photo & upload it</IonButton>     
+        } 
       </IonContent>
     </IonPage>
   );

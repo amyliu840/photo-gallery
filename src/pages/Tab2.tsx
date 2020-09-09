@@ -30,11 +30,11 @@ const Tab2: React.FC = () => {
           </IonRow>
         </IonGrid>
 
-        <IonFab vertical="bottom" horizontal="center" slot="fixed">
+        {/* <IonFab vertical="bottom" horizontal="center" slot="fixed">
           <IonFabButton onClick={() => takePhoto()}>
             <IonIcon icon={camera}></IonIcon>
           </IonFabButton>
-        </IonFab>
+        </IonFab> */}
 
         <IonActionSheet
           isOpen={!!photoToDelete}

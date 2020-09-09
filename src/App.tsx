@@ -13,7 +13,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { square, triangle, images } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import ScanQrCode from './pages/ScanQrCode';
 import Details from './pages/Details';
 
 /* Core CSS required for Ionic components to work properly */
@@ -43,24 +43,24 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          <Route path="/scanQrCode" component={ScanQrCode} />
           <Route path="/tab1" component={Tab1} exact={true} />
           <Route path="/tab2" component={Tab2} exact={true} />
           <Route path="/tab2/details" component={Details} />
-          <Route path="/tab3" component={Tab3} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
+          <Route path="/" render={() => <Redirect to="/scanQrCode" />} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton tab="tab1" href="/scanQrCode">
             <IonIcon icon={triangle} />
-            <IonLabel>Tab One</IonLabel>
+            <IonLabel>Scan Qr Code</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton tab="tab2" href="/tab1">
+            <IonIcon icon={square} />
+            <IonLabel>Take Photo</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/tab2">
             <IonIcon icon={images} />
             <IonLabel>Photos</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab Three</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

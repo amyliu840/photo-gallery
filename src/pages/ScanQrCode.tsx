@@ -1,10 +1,10 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
-import './Tab3.css';
+import './ScanQrCode.css';
 import { usePhotoGallery, Photo } from '../hooks/usePhotoGallery';
 
 
-const Tab3: React.FC = () => {
+const ScanQrCode: React.FC = () => {
   const { deletePhoto, photos, takePhoto } = usePhotoGallery();
 
   return (
@@ -28,4 +28,4 @@ const Tab3: React.FC = () => {
   );
 };
 
-export default Tab3;
+export default ScanQrCode;
