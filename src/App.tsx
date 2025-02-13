@@ -12,9 +12,7 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import { square, triangle, images } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
 import ScanQrCode from './pages/ScanQrCode';
-import Details from './pages/Details';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
