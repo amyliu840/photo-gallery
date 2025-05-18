@@ -50,8 +50,8 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "^2.0.1",
-    "react-scripts": "3.4.1"
+    "@capacitor/cli": "^7.2.0",
+    "react-scripts": "^5.0.1"
   },
   "description": "Build a photo gallery app that runs on iOS, Android, and the web - with just one codebase."
 }
